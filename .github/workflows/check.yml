@@ -1,0 +1,36 @@
+# Written by dts-site-tools' bin/tools-pin from its tools/plugin-workflows/check.yml;
+# bin/plugin-check fails when this file differs from what bin/tools-pin writes, so it is changed in
+# the tools, never here.
+#
+# Runs on each pull request, on each release tag, weekly and by its button: the tools' shared
+# checks for a DTS plugin (plugin-check.yml), pinned to the commit of the tools release
+# composer.lock installs. Its job is the check main's protection requires. A release is a tag
+# (v<the main file's Version>); the tag run checks the two agree, after bin/plugin-check --tag has
+# checked it before the tag was pushed (README.md).
+name: check
+
+on:
+  pull_request:
+  push:
+    tags: ["v*"]
+  # Weekly, so the security audit catches advisories published for packages already in use,
+  # even when no code changes (Mondays 06:23 UTC; an off-minute avoids the busy hour mark).
+  schedule:
+    - cron: "23 6 * * 1"
+  # The "Run workflow" button: the checks on demand.
+  workflow_dispatch:
+
+# Read-only access to the repository is all the checks need.
+permissions:
+  contents: read
+
+# A newer push to a pull request makes its older run pointless. Runs on main and on tags are not
+# cancelled, so each one reports in full.
+concurrency:
+  group: check-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  check:
+    # Pinned by commit, not by tag: a tag can be moved to different code, a commit cannot.
+    uses: direct-technical-solutions/dts-site-tools/.github/workflows/plugin-check.yml@41a6155f942783ccff0d7e6695a2d253b5419ead # dev-feat/dts-plugins

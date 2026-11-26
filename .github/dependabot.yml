@@ -1,0 +1,22 @@
+# Dependabot proposes a new release of the tools (dts/site-tools in composer.json's require-dev),
+# which bring the plugin's checks. It never merges: its pull request fails bin/plugin-check until
+# bin/tools-pin has run on its branch and the workflow it writes is committed there, and then waits
+# for review (template plan T9, T18). The workflow's own call is pinned by commit and written by
+# bin/tools-pin, never raised by Dependabot.
+version: 2
+
+updates:
+  - package-ecosystem: "composer"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "05:00"
+      timezone: "America/New_York"
+    # Hijacked releases are usually found and pulled within days; waiting a week means a release
+    # is only proposed once it has survived that. Security updates are not held back by this.
+    cooldown:
+      default-days: 7
+    commit-message:
+      prefix: "build"
+      include: "scope"

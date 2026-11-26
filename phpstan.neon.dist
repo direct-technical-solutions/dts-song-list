@@ -1,0 +1,16 @@
+# Static analysis of the plugin's PHP at the strictest level, run by bin/plugin-check.
+includes:
+    # WordPress-aware rules and the WordPress function signatures (php-stubs/wordpress-stubs),
+    # installed with the tools (composer.json's require-dev).
+    - vendor/szepeviktor/phpstan-wordpress/extension.neon
+
+parameters:
+    level: max
+    # The plugin requires PHP 8.4 (its header's "Requires PHP").
+    phpVersion: 80400
+    paths:
+        - .
+    excludePaths:
+        - vendor
+        # Composer writes the tools' commands here only once they are installed.
+        - bin (?)

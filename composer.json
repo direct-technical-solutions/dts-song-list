@@ -1,0 +1,31 @@
+{
+    "name": "dts/song-list",
+    "description": "A WordPress plugin that keeps a musician's songs in the admin and shows them on a page with the Song List block.",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0-or-later",
+    "homepage": "https://github.com/direct-technical-solutions/dts-song-list",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/direct-technical-solutions/dts-site-tools"
+        }
+    ],
+    "require": {
+        "php": ">=8.4",
+        "composer/installers": "^2.0"
+    },
+    "require-dev": {
+        "dts/site-tools": "dev-feat/dts-plugins"
+    },
+    "config": {
+        "allow-plugins": {
+            "composer/installers": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        },
+        "bin-dir": "bin",
+        "platform": {
+            "php": "8.4.0"
+        },
+        "sort-packages": true
+    }
+}

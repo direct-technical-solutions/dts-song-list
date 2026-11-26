@@ -1,0 +1,7 @@
+# What only the checks need; GitHub's archive of a release leaves it out, so it is never deployed.
+/.gitattributes export-ignore
+/.github export-ignore
+/composer.lock export-ignore
+/phpcs.xml.dist export-ignore
+/phpstan.neon.dist export-ignore
+/.gitignore export-ignore
