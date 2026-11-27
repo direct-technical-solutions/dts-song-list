@@ -33,4 +33,4 @@ concurrency:
 jobs:
   check:
     # Pinned by commit, not by tag: a tag can be moved to different code, a commit cannot.
-    uses: direct-technical-solutions/dts-site-tools/.github/workflows/plugin-check.yml@41a6155f942783ccff0d7e6695a2d253b5419ead # dev-feat/dts-plugins
+    uses: direct-technical-solutions/dts-site-tools/.github/workflows/plugin-check.yml@9654f58d25cb22025dc786de60ec4a4f050e277e # v0.4.0
